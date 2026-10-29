@@ -8,7 +8,6 @@ public class App {
         ApplicationContext context = new ClassPathXmlApplicationContext("beansConfig.xml");
         Student student = context.getBean("student", Student.class);
 
-        System.out.println("Student Name: " + student.getName());
         System.out.println(student);
     }
 }
