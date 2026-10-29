@@ -6,9 +6,16 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class App {
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext("beansConfig.xml");
-        Student student = context.getBean("student", Student.class);
+        Student student1 = context.getBean("student", Student.class);
+        Student student2 = context.getBean("student", Student.class);
 
-        System.out.println(student);
-        student.getDetails();
+        // Check if both references point to the SAME instance
+        System.out.println(student1 == student2);
+
+        // Modify student1's name
+        student1.setName("John Doe");
+
+        // Check student2
+        System.out.println(student2.getName());
     }
 }
