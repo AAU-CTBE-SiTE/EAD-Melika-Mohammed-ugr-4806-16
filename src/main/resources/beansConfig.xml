@@ -23,10 +23,10 @@
         <property name="age" value="20"/>
         <property name="address" ref="address"/>
         <property name="subjects">
-            <array>
+            <set>
                 <ref bean="math"/>
                 <ref bean="Java"/>
-            </array>
+            </set>
         </property>
     </bean>
 
