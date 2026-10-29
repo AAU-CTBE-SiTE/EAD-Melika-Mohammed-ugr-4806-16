@@ -9,11 +9,25 @@
         <property name="country" value="Ethiopia"/>
     </bean>
 
+    <bean id="math" class="com.craft.Subject">
+        <property name="subjectName" value="Maths 101"/>
+    </bean>
+
+    <bean id="Java" class="com.craft.Subject">
+        <property name="subjectName" value="Java EE"/>
+    </bean>
+
     <bean id="student" class="com.craft.Student">
-        <constructor-arg name="id" value="101"/>
-        <constructor-arg name="name" value="John Doe"/>
-        <constructor-arg name="age" value="20"/>
-        <constructor-arg name="address" ref="address"/>
+        <property name="id" value="101"/>
+        <property name="name" value="John Doe"/>
+        <property name="age" value="20"/>
+        <property name="address" ref="address"/>
+        <property name="subjects">
+            <list>
+                <ref bean="math"/>
+                <ref bean="Java"/>
+            </list>
+        </property>
     </bean>
 
 </beans>
