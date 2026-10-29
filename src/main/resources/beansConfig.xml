@@ -4,6 +4,10 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        https://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="student" class="com.craft.Student"></bean>
+    <bean id="student" class="com.craft.Student">
+        <property name="name" value="John Doe"/>
+        <property name="age" value="20"/>
+        <property name="id" value="101"/>
+    </bean>
 
 </beans>
