@@ -27,4 +27,9 @@ public class Actor {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "Actor{id=" + id + ", name='" + name + "'}";
+    }
 }

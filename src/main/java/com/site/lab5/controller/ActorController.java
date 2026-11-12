@@ -1,5 +1,7 @@
 package com.site.lab5.controller;
 
+import com.site.lab5.aop.Audited;
+import com.site.lab5.aop.LogExecutionTime;
 import com.site.lab5.model.Actor;
 
 import org.springframework.http.HttpStatus;
@@ -18,11 +20,13 @@ public class ActorController {
             new Actor(2L, "Sara")
     ));
 
+    @LogExecutionTime
     @GetMapping
     public List<Actor> getAllActors() {
         return actors;
     }
 
+    @Audited(action = "READ_ONE")
     @GetMapping("/{id}")
     public ResponseEntity<Actor> getActorById(@PathVariable Long id) {
         for (Actor actor : actors) {
@@ -33,6 +37,7 @@ public class ActorController {
         return ResponseEntity.notFound().build();
     }
 
+    @LogExecutionTime
     @PostMapping
     public ResponseEntity<Actor> createActor(@RequestBody Actor actor) {
         for (Actor existing : actors) {
@@ -42,6 +47,11 @@ public class ActorController {
         }
         actors.add(actor);
         return ResponseEntity.status(HttpStatus.CREATED).body(actor);
+    }
+
+    @GetMapping("/error-test")
+    public Actor errorTest() {
+        throw new IllegalStateException("Demo exception for AOP");
     }
 
     @PutMapping("/{id}")
