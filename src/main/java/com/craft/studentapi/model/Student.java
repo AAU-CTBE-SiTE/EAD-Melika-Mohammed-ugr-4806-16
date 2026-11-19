@@ -18,6 +18,9 @@ public class Student {
 
     private String firstName;
     private String lastName;
+
+    @Column(unique = true)
     private String email;
+
     private String department;
 }

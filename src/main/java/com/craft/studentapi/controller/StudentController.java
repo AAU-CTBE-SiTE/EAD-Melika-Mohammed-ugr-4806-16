@@ -29,6 +29,11 @@ public class StudentController {
         return studentService.getById(id);
     }
 
+    @GetMapping("/department/{department}")
+    public List<Student> getByDepartment(@PathVariable String department) {
+        return studentService.getByDepartment(department);
+    }
+
     @PutMapping("/{id}")
     public Student update(@PathVariable Long id, @RequestBody Student student) {
         return studentService.update(id, student);

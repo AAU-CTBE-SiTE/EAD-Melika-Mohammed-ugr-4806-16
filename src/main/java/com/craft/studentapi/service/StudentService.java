@@ -25,6 +25,10 @@ public class StudentService {
         return studentRepository.findById(id).orElse(null);
     }
 
+    public List<Student> getByDepartment(String department) {
+        return studentRepository.findByDepartment(department);
+    }
+
     public Student update(Long id, Student updated) {
         Student existing = studentRepository.findById(id).orElse(null);
         if (existing == null) {
