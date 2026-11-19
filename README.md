@@ -1,4 +1,6 @@
-﻿# Student API
+﻿AI chat history: https://claude.ai/share/459a9e93-45d5-4a44-ba69-667b95511a5f
+
+# Student API
 
 A RESTful CRUD API for managing students, built with Spring Boot, Spring Data JPA and MySQL.
 Written for the AI-guided Spring Boot lab (AAU, SiTE).
@@ -44,3 +46,4 @@ Example body for POST and PUT:
 ## AI history
 
 See [AI_CHAT_HISTORY.md](AI_CHAT_HISTORY.md).
+
