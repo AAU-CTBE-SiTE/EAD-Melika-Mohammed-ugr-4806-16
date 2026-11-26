@@ -1,0 +1,204 @@
+{
+  "info": {
+    "name": "Lab 9 - RestClient: Customer (8080, MySQL) & Order (9090, MongoDB)",
+    "description": "customer_service (MySQL, port 8080) and order_service (MongoDB, port 9090). Run 'Save customer' first: its test script stores the new customer's id in the {{customerId}} variable, so every other request uses it automatically.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "customerUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "orderUrl",
+      "value": "http://localhost:9090"
+    },
+    {
+      "key": "customerId",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Customer Service (8080 - MySQL)",
+      "item": [
+        {
+          "name": "Save customer",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.collectionVariables.set(\"customerId\", body.id);",
+                  "console.log(\"Saved customerId = \" + body.id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Abebe Kebede\",\n    \"email\": \"abebe@gmail.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{customerUrl}}/api/customers"
+          }
+        },
+        {
+          "name": "Get all customers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{customerUrl}}/api/customers"
+          }
+        },
+        {
+          "name": "Get customer by id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{customerUrl}}/api/customers/{{customerId}}"
+          }
+        },
+        {
+          "name": "Update customer",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Abebe Kebede\",\n    \"email\": \"abebe.kebede@gmail.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{customerUrl}}/api/customers/{{customerId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Order Service (9090 - MongoDB)",
+      "item": [
+        {
+          "name": "Save order - Laptop",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"customerId\": {{customerId}},\n    \"productName\": \"Laptop\",\n    \"quantity\": 1,\n    \"price\": 55000\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{orderUrl}}/api/orders"
+          }
+        },
+        {
+          "name": "Save order - Phone",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"customerId\": {{customerId}},\n    \"productName\": \"Phone\",\n    \"quantity\": 2,\n    \"price\": 18000\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{orderUrl}}/api/orders"
+          }
+        },
+        {
+          "name": "Save order - Headphones",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"customerId\": {{customerId}},\n    \"productName\": \"Headphones\",\n    \"quantity\": 1,\n    \"price\": 2500\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{orderUrl}}/api/orders"
+          }
+        },
+        {
+          "name": "Get all orders",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{orderUrl}}/api/orders"
+          }
+        },
+        {
+          "name": "Get orders by customer id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{orderUrl}}/api/orders/customer/{{customerId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. AIM - Get customer orders (8080 -> 9090)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{customerUrl}}/api/customers/{{customerId}}/orders"
+      }
+    },
+    {
+      "name": "4. Delete customer (run last)",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{customerUrl}}/api/customers/{{customerId}}"
+      }
+    }
+  ]
+}
